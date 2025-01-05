@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"url-bite/config"
 	"url-bite/database"
@@ -31,6 +32,14 @@ func main() {
 
 	// Initialize Gin router
 	r := gin.Default()
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"}, // Allow all origins
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	// Middleware for IP-based rate limiting
 	r.Use(handlers.IPRateLimiterMiddleware(logger))
