@@ -41,6 +41,8 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	r.GET("/ping", handlers.Ping())
+
 	// Middleware for IP-based rate limiting
 	r.Use(handlers.IPRateLimiterMiddleware(logger))
 
