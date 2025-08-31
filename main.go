@@ -42,6 +42,7 @@ func main() {
 	}))
 
 	r.GET("/ping", handlers.Ping())
+	r.HEAD("/ping", handlers.Ping()) // for light-weight request
 
 	// Middleware for IP-based rate limiting
 	r.Use(handlers.IPRateLimiterMiddleware(logger))
